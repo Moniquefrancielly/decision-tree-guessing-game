@@ -2,15 +2,21 @@ from tree_builder import build_tree
 from node import Node
 from collections import deque
 
+# --- Função Auxiliar de Validação ---
+def get_valid_input(prompt):
+    """Garante que o utilizador responda apenas 's' ou 'n'."""
+    while True:
+        response = input(prompt).lower().strip()
+        if response in ['s', 'n']:
+            return response
+        print("Resposta inválida! Por favor, digite 's' para Sim ou 'n' para Não.")
+
 # --- Parte 2: DFS (Busca em Profundidade) ---
 def dfs_visit(node):
     if node is None:
         return
-    
-    # Exibe a pergunta ou a resposta final
     info = node.question if node.question else f"Resposta: {node.answer}"
     print(f" -> {info}", end="")
-    
     dfs_visit(node.yes)
     dfs_visit(node.no)
 
@@ -18,33 +24,29 @@ def dfs_visit(node):
 def bfs_visit(root):
     if root is None:
         return
-    
     queue = deque([root])
     while queue:
         node = queue.popleft()
         info = node.question if node.question else f"Resposta: {node.answer}"
         print(f" -> {info}", end="")
-        
         if node.yes:
             queue.append(node.yes)
         if node.no:
             queue.append(node.no)
 
-# --- Parte 12 (Opcional): Aprendizado Incremental ---
+# --- Parte 12: Aprendizado Incremental ---
 def aprender_novo_item(node_antigo):
     print("\n[Akinator]: Oh não! Eu errei.")
     novo_item = input("Em que prato ou doce você estava pensando? ")
     pergunta_nova = input(f"Que pergunta diferenciaria '{novo_item}' de '{node_antigo.answer}'? ")
-    resposta_correta = input(f"Para '{novo_item}', a resposta a essa pergunta é 's' ou 'n'? ").lower()
-
-    # Guarda o palpite que já existia
-    palpite_antigo = node_antigo.answer
     
-    # Transforma o nó de resposta em um nó de pergunta
+    # Validação aplicada na resposta da nova pergunta
+    resposta_correta = get_valid_input(f"Para '{novo_item}', a resposta a essa pergunta é 's' ou 'n'? ")
+
+    palpite_antigo = node_antigo.answer
     node_antigo.answer = None
     node_antigo.question = pergunta_nova
 
-    # Cria os novos ramos
     if resposta_correta == 's':
         node_antigo.yes = Node(answer=novo_item)
         node_antigo.no = Node(answer=palpite_antigo)
@@ -57,14 +59,16 @@ def aprender_novo_item(node_antigo):
 # --- Parte 4: Simulação do Jogo ---
 def play(node):
     if node.answer:
-        confirmacao = input(f"\n[Akinator]: Eu acho que é... {node.answer}! Acertei? (s/n): ").lower()
+        # Validação aplicada no palpite final
+        confirmacao = get_valid_input(f"\n[Akinator]: Eu acho que é... {node.answer}! Acertei? (s/n): ")
         if confirmacao == 's':
             print("Ótimo! Ganhei mais uma.")
         else:
             aprender_novo_item(node)
         return
 
-    choice = input(f"\n{node.question} (s/n): ").lower()
+    # Validação aplicada nas perguntas da árvore
+    choice = get_valid_input(f"\n{node.question} (s/n): ")
     if choice == 's':
         play(node.yes)
     else:
@@ -88,15 +92,15 @@ if __name__ == "__main__":
         if opcao == '1':
             play(arvore)
         elif opcao == '2':
-            print("\nExploração DFS (Caminho Profundo):")
+            print("\nExploração DFS:")
             dfs_visit(arvore)
             print()
         elif opcao == '3':
-            print("\nExploração BFS (Nível por Nível):")
+            print("\nExploração BFS:")
             bfs_visit(arvore)
             print()
         elif opcao == '4':
             print("Encerrando... Até logo!")
             break
         else:
-            print("Opção inválida.")
+            print("Opção inválida. Escolha entre 1 e 4.")
