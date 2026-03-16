@@ -1,6 +1,8 @@
 from tree_builder import build_tree
 from node import Node
-from collections import deque
+from dfs import dfs_visit
+from bfs import bfs_visit
+from tree_analysis import tree_height, count_nodes, count_leaves
 
 # --- Função Auxiliar de Validação ---
 def get_valid_input(prompt):
@@ -11,30 +13,9 @@ def get_valid_input(prompt):
             return response
         print("Resposta inválida! Por favor, digite 's' para Sim ou 'n' para Não.")
 
-# --- Parte 2: DFS (Busca em Profundidade) ---
-def dfs_visit(node):
-    if node is None:
-        return
-    info = node.question if node.question else f"Resposta: {node.answer}"
-    print(f" -> {info}", end="")
-    dfs_visit(node.yes)
-    dfs_visit(node.no)
 
-# --- Parte 3: BFS (Busca em Largura) ---
-def bfs_visit(root):
-    if root is None:
-        return
-    queue = deque([root])
-    while queue:
-        node = queue.popleft()
-        info = node.question if node.question else f"Resposta: {node.answer}"
-        print(f" -> {info}", end="")
-        if node.yes:
-            queue.append(node.yes)
-        if node.no:
-            queue.append(node.no)
 
-# --- Parte 12: Aprendizado Incremental ---
+# --- Aprendizado Incremental ---
 def aprender_novo_item(node_antigo):
     print("\n[Akinator]: Oh não! Eu errei.")
     novo_item = input("Em que prato ou doce você estava pensando? ")
@@ -56,7 +37,7 @@ def aprender_novo_item(node_antigo):
 
     print(f"\n[Akinator]: Entendido! Agora sei a diferença entre '{novo_item}' e '{palpite_antigo}'.")
 
-# --- Parte 4: Simulação do Jogo ---
+# --- Simulação do Jogo ---
 def play(node):
     if node.answer:
         # Validação aplicada no palpite final
@@ -78,29 +59,38 @@ def play(node):
 if __name__ == "__main__":
     arvore = build_tree()
     
-    while True:
-        print("\n" + "="*30)
-        print("   AKINATOR GASTRONÔMICO")
-        print("="*30)
-        print("1. Iniciar Jogo")
-        print("2. Ver Ordem de Visita (DFS)")
-        print("3. Ver Ordem de Visita (BFS)")
-        print("4. Sair")
-        
-        opcao = input("\nEscolha uma opção: ")
+while True:
+    print("\nMENU")
+    print("1 - Iniciar jogo")
+    print("2 - Ver DFS")
+    print("3 - Ver BFS")
+    print("4 - Ver estatísticas da árvore")
+    print("5 - Sair")
 
-        if opcao == '1':
+    opcao = input("\nEscolha uma opção: ")
+
+    if opcao == '1':
             play(arvore)
-        elif opcao == '2':
-            print("\nExploração DFS:")
-            dfs_visit(arvore)
-            print()
-        elif opcao == '3':
-            print("\nExploração BFS:")
-            bfs_visit(arvore)
-            print()
-        elif opcao == '4':
-            print("Encerrando... Até logo!")
-            break
-        else:
-            print("Opção inválida. Escolha entre 1 e 4.")
+    elif opcao == '2':
+      print("\nExploração DFS:")
+      visitados = dfs_visit(arvore)
+      print(f"\nNós visitados pelo DFS: {visitados}")
+    elif opcao == '3':
+      print("\nExploração BFS:")
+      visitados = bfs_visit(arvore)
+      print(f"\nNós visitados pelo BFS: {visitados}")
+    elif opcao == '4':
+      altura = tree_height(arvore)
+      total = count_nodes(arvore)
+      folhas = count_leaves(arvore)
+
+      print("\nEstatísticas da árvore:")
+      print(f"Altura da árvore: {altura}")
+      print(f"Total de nós: {total}")
+      print(f"Número de folhas: {folhas}")
+    elif opcao == '5':
+      print("Encerrando... Até logo!")
+      break
+
+    else:
+            print("Opção inválida. Escolha entre 1 e 5.")
