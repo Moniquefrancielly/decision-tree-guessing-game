@@ -59,38 +59,38 @@ def play(node):
 if __name__ == "__main__":
     arvore = build_tree()
     
-while True:
-    print("\nMENU")
-    print("1 - Iniciar jogo")
-    print("2 - Ver DFS")
-    print("3 - Ver BFS")
-    print("4 - Ver estatísticas da árvore")
-    print("5 - Sair")
+    while True:
+        print("\nMENU")
+        print("1 - Iniciar jogo")
+        print("2 - Ver DFS")
+        print("3 - Ver BFS")
+        print("4 - Ver estatísticas da árvore")
+        print("5 - Sair")
 
-    opcao = input("\nEscolha uma opção: ")
+        opcao = input("\nEscolha uma opção: ")
 
-    if opcao == '1':
-            play(arvore)
-    elif opcao == '2':
-      print("\nExploração DFS:")
-      visitados = dfs_visit(arvore)
-      print(f"\nNós visitados pelo DFS: {visitados}")
-    elif opcao == '3':
-      print("\nExploração BFS:")
-      visitados = bfs_visit(arvore)
-      print(f"\nNós visitados pelo BFS: {visitados}")
-    elif opcao == '4':
-      altura = tree_height(arvore)
-      total = count_nodes(arvore)
-      folhas = count_leaves(arvore)
+        if opcao == '1':
+                play(arvore)
+        elif opcao == '2':
+          print("\nExploração DFS:")
+          visitados = dfs_visit(arvore)
+          print(f"\nNós visitados pelo DFS: {visitados}")
+        elif opcao == '3':
+          print("\nExploração BFS:")
+          visitados = bfs_visit(arvore)
+          print(f"\nNós visitados pelo BFS: {visitados}")
+        elif opcao == '4':
+          altura = tree_height(arvore)
+          total = count_nodes(arvore)
+          folhas = count_leaves(arvore)
 
-      print("\nEstatísticas da árvore:")
-      print(f"Altura da árvore: {altura}")
-      print(f"Total de nós: {total}")
-      print(f"Número de folhas: {folhas}")
-    elif opcao == '5':
-      print("Encerrando... Até logo!")
-      break
+          print("\nEstatísticas da árvore:")
+          print(f"Altura da árvore: {altura}")
+          print(f"Total de nós: {total}")
+          print(f"Número de folhas: {folhas}")
+        elif opcao == '5':
+          print("Encerrando... Até logo!")
+          break
 
-    else:
-            print("Opção inválida. Escolha entre 1 e 5.")
+        else:
+                print("Opção inválida. Escolha entre 1 e 5.")
