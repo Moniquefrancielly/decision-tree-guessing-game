@@ -1,6 +1,5 @@
 from tree_builder import build_tree
 from node import Node
-from collections import deque
 from dfs import dfs_visit
 from bfs import bfs_visit
 from tree_analysis import tree_height, count_nodes, count_leaves
@@ -14,28 +13,7 @@ def get_valid_input(prompt):
             return response
         print("Resposta inválida! Por favor, digite 's' para Sim ou 'n' para Não.")
 
-# --- Parte 2: DFS (Busca em Profundidade) ---
-def dfs_visit(node):
-    if node is None:
-        return
-    info = node.question if node.question else f"Resposta: {node.answer}"
-    print(f" -> {info}", end="")
-    dfs_visit(node.yes)
-    dfs_visit(node.no)
 
-# --- Parte 3: BFS (Busca em Largura) ---
-def bfs_visit(root):
-    if root is None:
-        return
-    queue = deque([root])
-    while queue:
-        node = queue.popleft()
-        info = node.question if node.question else f"Resposta: {node.answer}"
-        print(f" -> {info}", end="")
-        if node.yes:
-            queue.append(node.yes)
-        if node.no:
-            queue.append(node.no)
 
 # --- Parte 12: Aprendizado Incremental ---
 def aprender_novo_item(node_antigo):
