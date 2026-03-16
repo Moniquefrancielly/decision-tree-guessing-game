@@ -75,6 +75,10 @@ def build_tree():
     frigideira = Node(question="É feito na frigideira?")
     polvilho.no = frigideira
     frigideira.yes = Node(answer="Tapioca")
-    frigideira.no = Node(answer="Torta")
+
+    fatia = Node(question="É servido em fatias?")
+    frigideira.no = fatia
+    fatia.yes = Node(answer= "Torta")
+    fatia.no = Node(answer="Empada")
 
     return root
