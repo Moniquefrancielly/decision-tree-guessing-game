@@ -1,6 +1,8 @@
 from tree_builder import build_tree
 from node import Node
 from collections import deque
+from dfs import dfs_visit
+from bfs import bfs_visit
 
 # --- Função Auxiliar de Validação ---
 def get_valid_input(prompt):
