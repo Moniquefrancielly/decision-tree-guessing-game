@@ -51,8 +51,8 @@
     │       │   └── Não
     │       │       ├── É feito com polvilho?
     │       │       │   ├── Sim → Pão de queijo
-    │       │       │   └── Não → Empada
-    │       │       │
-    │       │       └── É feito na frigideira?
-    │       │           ├── Sim → Tapioca
-    │       │           └── Não → Torta
+    │       │       │   └── Não → É feito na frigideira?
+    │       │       │             ├── Sim → Tapioca
+    │       │       │             └── Não → É servido em fatias?
+    │       │       │                       ├── Sim → Torta
+    │       │       │                       └── Não → Empada
