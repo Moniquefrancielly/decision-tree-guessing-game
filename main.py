@@ -15,7 +15,7 @@ def get_valid_input(prompt):
 
 
 
-# --- Parte 12: Aprendizado Incremental ---
+# --- Aprendizado Incremental ---
 def aprender_novo_item(node_antigo):
     print("\n[Akinator]: Oh não! Eu errei.")
     novo_item = input("Em que prato ou doce você estava pensando? ")
@@ -37,7 +37,7 @@ def aprender_novo_item(node_antigo):
 
     print(f"\n[Akinator]: Entendido! Agora sei a diferença entre '{novo_item}' e '{palpite_antigo}'.")
 
-# --- Parte 4: Simulação do Jogo ---
+# --- Simulação do Jogo ---
 def play(node):
     if node.answer:
         # Validação aplicada no palpite final
