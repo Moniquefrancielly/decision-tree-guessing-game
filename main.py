@@ -72,13 +72,13 @@ while True:
     if opcao == '1':
             play(arvore)
     elif opcao == '2':
-            print("\nExploração DFS:")
-            dfs_visit(arvore)
-            print()
+      print("\nExploração DFS:")
+      visitados = dfs_visit(arvore)
+      print(f"\nNós visitados pelo DFS: {visitados}")
     elif opcao == '3':
-            print("\nExploração BFS:")
-            bfs_visit(arvore)
-            print()
+      print("\nExploração BFS:")
+      visitados = bfs_visit(arvore)
+      print(f"\nNós visitados pelo BFS: {visitados}")
     elif opcao == '4':
       altura = tree_height(arvore)
       total = count_nodes(arvore)
